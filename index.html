@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <main class="main">
+        <div class="overview">
+            <div class="buildings"><img src="img/buildings.png" alt="buildings" style="transform: translate(-12px,6px) scale(1.2);"></div>
+            <div class="mini_menu">
+                <button class="add_city" type="button"><img src="img/add_box.png" alt=""></button>
+                <div class="city_slider">
+                    <button class="city_slider_button active" type="button"></button>
+                    <button class="city_slider_button" type="button"></button>
+                    <button class="city_slider_button" type="button"></button>
+                </div>
+                <div class="degree_slider">
+                    <span class="active">°C</span>
+                    <input type="checkbox" id="degree_toggle" /><label class="degree_toggle" for="degree_toggle">Toggle</label>
+                    <span>°F</span>
+                </div>
+            </div>
+            <div class="cities">
+                <button id="prev_city" type="button"><img src="img/larrow.png" alt=""></button>
+                <button id="next_city"><img src="img/rarrow.png" alt=""></button>
+
+                <div class="city active">
+                    <div class="location">
+                        <div class="location_top">
+                            <h2><img src="img/near_me.png" alt="arrow icon">New York, USA</h2>
+                            <div class="sunrise"><img src="img/sunrise.png" alt="" id="sunr">07:19</div>
+                        </div>
+                        <div class="bottom">
+                            <p>Today 28 Sept</p>
+                            <div class="sunset"><img src="img/sunset.png" alt="" id="sunr">19:32</div>
+                        </div>
+                    </div>
+                    <div class="temperature">
+                        <div class="temp">
+                            <h1>27°</h1>
+                            <p><img src="img/sun.png" alt="">Sunny</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="dashboard">
+            <div class="welcome">
+                <div class="message">
+                    <h3>Welcome back Isabella!</h3>
+                    <p>Check out today's weather information</p>
+                </div>
+                <div class="profile">
+                    <button type="button" class="menu"><img src="img/menu.png" alt=""></button>
+                    <button class="profile_pic"><img src="img/profile.jpg" alt=""></button>
+                </div>
+            </div>
+            <div class="temperature_graph">
+                <div class="header">
+                    <p>Upcoming hours</p>
+                    <div>
+                        <button>Rain precipitation <img src="img/darrow.png" alt=""></button>
+                        <button>Next days <img src="img/rarrowb.png" alt=""></button>
+                    </div>
+                </div>
+                <div class="labels">
+                    <div><p>Now</p><img src="img/sunb.png" alt="">27°</div>
+                    <div><p>11:00</p><img src="img/sunb.png" alt="">28°</div>
+                    <div><p>12:00</p><ion-icon name="cloud-outline" id="cld"></ion-icon>28°</div>
+                    <div><p>13:00</p><ion-icon name="cloud-outline" id="cld"></ion-icon>29°</div>
+                    <div><p>14:00</p><img src="img/sunb.png" alt="">30°</div>
+                    <div><p>15:00</p><ion-icon name="cloud-outline" id="cld"></ion-icon>29°</div>
+                    <div><p>16:00</p><ion-icon name="cloud-outline" id="cld"></ion-icon>29°</div>
+                    <div><p>17:00</p><img src="img/sunb.png" alt="">28°</div>
+                </div>
+                <div class="mychart">
+                    <div><canvas id="myChart"></canvas></div>
+                </div>
+            </div>
+            <h3 class="more_details">More details of today's weather</h3>
+            <div class="weather_details">
+                <div class="details_row">
+                    <div class="details_card">
+                        <div class="details_header"><p>Humidity</p><div class="details_icon"><img src="img/drops.png" alt=""></div></div>
+                        <div class="details_content"><h2>82%</h2><p>bad</p></div>
+                        <div class="details_bar">
+                            <div><p>good</p><div class="bar wet_0"></div></div>
+                            <div><p>normal</p><div class="bar wet_1"></div></div>
+                            <div><p>bad</p><div class="bar wet_2"></div></div>
+                        </div>
+                    </div>
+                    <div class="details_card">
+                        <div class="details_header"><p>Wind</p><div class="details_icon"><img src="img/wind.png" alt=""></div></div>
+                        <div class="details_content">
+                            <img class="meter" src="img/speedometer.png" alt="">
+                            <img class="meter_needle" src="img/pointer.png" alt="">
+                            <h2 class="meter_speed">8 km/h</h2>
+                        </div>
+                    </div>
+                    <div class="details_card">
+                        <div class="details_header"><p>Precipitation</p><div class="details_icon"><img src="img/rain.png" alt=""></div></div>
+                        <div class="details_content"><h2>1.4 cm</h2></div>
+                        <div class="details_bar rain">
+                            <div><p>0</p><div class="bar rain_0"></div></div>
+                            <div><p>10</p><div class="bar rain_1"></div></div>
+                            <div><p>20</p><div class="bar rain_2"></div></div>
+                            <div><p>30</p><div class="bar rain_3"></div></div>
+                            <div><p>40</p><div class="bar rain_4"></div></div>
+                            <div><p>50</p><div class="bar rain_5"></div></div>
+                            <div><p>60</p><div class="bar rain_6"></div></div>
+                            <div><p>70</p><div class="bar rain_7"></div></div>
+                            <div><p>80</p><div class="bar rain_8"></div></div>
+                            <div><p>90</p><div class="bar rain_9"></div></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="details_row">
+                    <div class="details_card">
+                        <div class="details_header"><p>UV index</p><div class="details_icon"><img src="img/sun.png" alt=""></div></div>
+                        <div class="details_content"><h2>4</h2><p>medium</p></div>
+                        <div class="details_bar uv">
+                            <div><p>0-2</p><div class="bar uv_0"></div></div>
+                            <div><p>3-5</p><div class="bar uv_1"></div></div>
+                            <div><p>6-7</p><div class="bar uv_2"></div></div>
+                            <div><p>8-10</p><div class="bar uv_3"></div></div>
+                            <div><p>11+</p><div class="bar uv_4"></div></div>
+                        </div>
+                    </div>
+                    <div class="details_card">
+                        <div class="details_header"><p>Feels like</p><div class="details_icon"><ion-icon name="thermometer-outline" style="color:rgba(255, 255, 255,0.7);font-size: 18px;transform: translate(2px,2px)"></ion-icon></div></div>
+                        <div class="details_content"><h2>30°</h2></div>
+                        <div class="details_bar">
+                            <div><div class="feels_like"><p>0°</p><p>25°</p><p>50°</p></div><div class="bar temp_0"></div></div>
+                        </div>
+                    </div>
+                    <div class="details_card">
+                        <div class="details_header"><p>Chance of rain</p><div class="details_icon"><img src="img/umbrella.png" alt=""></div></div>
+                        <div class="details_content"><h2>42%</h2></div>
+                        <div class="details_bar">
+                            <div><div class="feels_like"><p>0°</p><p>25°</p><p>50°</p><p>75°</p><p>100°</p></div><div class="bar chance_0"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #B4D7FE;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    
+}
+
+.main{
+    position: relative;
+    display: flex;
+    border-radius: 12px;
+    background-color: #5C9CE5;
+    overflow: hidden;
+    
+}
+.profile_pic img {
+    object-fit: fill;
+    transform: scale(1.555)
+}
+.profile_pic{
+
+  overflow: hidden;
+  object-fit: fill;
+}
+
+button {
+    cursor: pointer;
+}
+
+.buildings {
+    position: absolute;
+    width: 75%;
+    left: 0;
+    bottom: -10px;
+}
+#sunr{
+    position: relative;
+    height:18px;
+    
+}
+
+.buildings img {
+    width: 100%;
+    height: 100%;
+}
+
+.overview {
+    position: relative;
+    width: 23%;
+    padding: 1.5em;
+
+    color: #fff;
+}
+
+.mini_menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_city {
+    width: 3em;
+    aspect-ratio: 1 / 1;
+
+    background-color: transparent;
+    border: none;
+}
+
+.add_city img {
+    width: 100%;
+    height: 100%;
+}
+
+.city_slider_button {
+    height: .75em;
+    aspect-ratio: 1 / 1;
+
+    border-radius: 2em;
+    border: none;
+    background-color: #ffffff99;
+}
+
+.city_slider_button.active {
+    aspect-ratio: 2.5 / 1;
+    background-color: #fff;
+}
+
+
+.degree_slider {
+    display: flex;
+    width: 25%;
+    justify-content: space-between;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.degree_slider span {
+    color: #ffffff99;
+}
+
+.degree_slider span.active {
+    color: #fff;
+}
+
+#degree_toggle {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.degree_toggle {
+    position: relative;
+    display: block;
+    text-indent: -9999px;
+    height: 1em;
+    aspect-ratio: 2 / 1;
+    background: #ffffff54;
+    border-radius: 100px;
+    cursor: pointer;
+}
+  
+.degree_toggle:after {
+    content: '';
+    position: absolute;
+    height: 170%;
+    aspect-ratio: 1 / 1;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -20%);
+    transition: 0.3s;
+    background: #fff;
+    border-radius: 50%;
+}
+  
+#degree_toggle:checked + .degree_toggle:after {
+    left: 100%;
+}
+
+.cities {
+    position: relative;
+}
+
+
+.location {
+    padding-block: 2em;
+}
+
+.location > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location img,
+.temperature img {
+    width: 1.7em;
+    padding-right: 0.3em;
+}
+
+.location h2 {
+    font-weight: 300;
+}
+
+.temperature {
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.temperature h1 {
+    font-weight: 700;
+    font-size: 4em;
+}
+
+#next_city,
+#prev_city {
+    position: absolute;
+    background: transparent;
+    border: none;
+    top: 12em;
+    z-index: 100;
+}
+
+#next_city {
+    right: 0;
+}
+
+#prev_city {
+    left: 0;
+}
+
+.temperature p {
+    display: flex;
+}
+
+.dashboard {
+    width: 80%;
+
+    padding: 1.5em;
+
+    --d_radius: 2em;
+    border-radius: var(--d_radius) 0 0 var(--d_radius);
+    background-color: #E4F1FF;
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: .75em;
+}
+
+.welcome .menu {
+    background: transparent;
+    border: none;
+}
+
+.profile {
+    display: flex;
+    gap: 1.75em;
+}
+
+.profile_pic {
+    width: 3em;
+    aspect-ratio: 1 / 1;
+    background: #5C9CE5;
+    border-radius: .75em;
+    border: none;
+}
+
+.profile_pic img {
+    height: 70%;
+}
+
+.temperature_graph {
+    padding: 1.75em;
+    background-color: #fff;
+    border-radius: 1.75em;
+}
+
+.temperature_graph .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.temperature_graph .header div {
+    display: flex;
+}
+
+.temperature_graph .header button {
+    font-family: 'Nunito', sans-serif;
+    margin-left: 1em;
+    padding-block: .25em;
+    padding-inline: 1em;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    border-radius: 0.75em;
+    border: none;
+}
+
+.temperature_graph .header img {
+    height: 1em;
+}
+
+.temperature_graph .labels {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1.75em;
+}
+
+.temperature_graph .labels div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.temperature_graph .labels img{
+    height: 2em;
+}
+
+.mychart {
+    display: flex;
+    justify-content: center;
+}
+
+.mychart div {
+    width: 100%;
+}
+
+.more_details {
+    padding-block: 1.25rem;
+}
+
+.weather_details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75em;
+}
+
+.details_row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.75em;
+}
+
+.details_card {
+    background-color: #fff;
+    width: 100%;
+    border-radius: 1.75em;
+    padding: .75em 1.75em;
+    font-weight: 300;
+}
+
+.details_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.details_icon {
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: #5C9CE5;
+    border-radius: 0.5em;
+}
+
+.details_icon img {
+    position: absolute;
+    height: 70%;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.details_content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+    padding-block: 0.75em;
+}
+
+.details_bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.details_bar > * {
+    width: 100%;
+}
+
+.details_bar p {
+    color: #c0c0c0;
+}
+
+.details_card .bar {
+    height: 1em;
+    background-color: #d9d9d9;
+    border-radius: 2em;
+}
+
+.rain {
+    gap: .4em;
+}
+
+.uv {
+    gap: .7em;
+}
+
+.feels_like {
+    display: flex;
+    justify-content: space-between;
+}
+
+.meter {
+    max-height: 6em;
+    background-color: #d9d9d9;
+    
+    background-image: linear-gradient(65deg, transparent 50%, #d9d9d9 50%),
+                        linear-gradient(50deg, #5C9CE5 50%, transparent 50%)
+}
+
+.meter_needle {
+    position: absolute;
+    height: 45%;
+    bottom: 2em;
+
+    transform-origin: bottom center;
+    transform: rotateZ(-30deg) translateY(10%);
+}
+
+.meter_speed {
+    position: absolute;
+    bottom: 0;
+}
+
+.wet_0 {
+    background-image: linear-gradient(90deg, #5C9CE5 100%, transparent 0%)
+}
+
+.wet_1 {
+    background-image: linear-gradient(90deg, #5C9CE5 100%, transparent 0%)
+}
+
+.wet_2 {
+    background-image: linear-gradient(90deg, #5C9CE5 27.3%, transparent 0%)
+}
+
+
+.rain_0 {
+    background-image: linear-gradient(90deg, #5C9CE5 100%, transparent 0%)
+}
+
+.rain_1 {
+    background-image: linear-gradient(90deg, #5C9CE5 70%, transparent 0%)
+}
+
+.rain_2 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_3 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_4 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_5 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_6 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_7 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_8 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.rain_9 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.uv_0 {
+    background-image: linear-gradient(90deg, #5C9CE5 100%, transparent 0%)
+}
+
+.uv_1 {
+    background-image: linear-gradient(90deg, #5C9CE5 50%, transparent 0%)
+}
+
+.uv_2 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.uv_3 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.uv_4 {
+    background-image: linear-gradient(90deg, #5C9CE5 0%, transparent 0%)
+}
+
+.temp_0 {
+    background-image: linear-gradient(90deg, #5C9CE5 67%, transparent 0%)
+}
+
+.chance_0 {
+    background-image: linear-gradient(90deg, #5C9CE5 42%, transparent 0%)
+}
+
+
+.city {
+    position: absolute;
+    width: 100%;
+    transition: 400ms;
+}
+
+.city:not(.active){
+    opacity: 0;
+}
+
+.city.done {
+    transform: translateX(-100%);
+}
+
+.city.soon {
+    transform: translateX(100%)
+}
+#cld{
+    font-size: 28px;
+    height:1.9rem;
+    color:rgba(0, 0, 0,0.6)
+}
+    </style>
+    
+    <script>
+        const temps = [23, 29, 58, 75, 33, 20, 73, 49];
+const mct = document.getElementById('myChart').getContext('2d');
+
+const chart = new Chart(mct, {
+    type: 'line',
+    data: {
+        labels: temps.map(x => `${x}%`),
+        datasets: [{
+            label: 'temperature',
+            data: temps,
+            fill: true,
+            backgroundColor: '#5c9ce5',
+            pointStyle: false,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks: {
+                    display: false
+                },
+                grid: {
+                    lineWidth: 0
+                }
+            },
+            x: { 
+                grid: {
+                    
+                    color: 'black', 
+                    lineWidth: 0.5,
+                    drawBorder: true,
+                    drawOnChartArea: true
+                }
+            }
+        }
+    }
+});
+
+
+const cities = Array.from(document.getElementsByClassName('city'));
+const citySlider = Array.from(document.getElementsByClassName('city_slider_button'));
+
+
+    </script>
+</body>
+</html>
